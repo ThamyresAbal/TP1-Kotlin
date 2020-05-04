@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // Post
         lstUsuarios.adapter = ArrayAdapter(
             applicationContext,
-            android.R.layout.simple_list_item_1,
+            android.R.layout.la,
             usuarios
         )
         fabAddUsuario.setOnClickListener {

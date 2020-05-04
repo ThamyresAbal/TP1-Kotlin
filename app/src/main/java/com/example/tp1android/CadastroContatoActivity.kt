@@ -3,10 +3,14 @@ package com.example.tp1android
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.example.tp1android.Model.Usuario
@@ -46,20 +50,23 @@ class CadastroContatoActivity : AppCompatActivity() {
                 .build()
 
             appDatabase.usuarioDao().store(usuario)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_CANCELED) {
             if (requestCode == PICK_IMAGE) {
-                val imagemSelecionada: Uri? = data?.data
-                val foto = findViewById(R.id.imageView) as ImageView
-                val bitmap = BitmapFactory.decodeFile(imagemSelecionada.toString())
-              //  val bitmapReduzido = Bitmap.createScaledBitmap(bitmap, 1080, 1000, true)
-                foto.setImageBitmap(bitmap)
-               // foto.scaleType = ImageView.ScaleType.FIT_XY
+                val imagemURI = ImageDecoder.createSource(this.contentResolver, data!!.data!!)
+                val imagemSelecionada = ImageDecoder.decodeBitmap(imagemURI)
 
+                val foto = imageView
+
+                foto.setImageBitmap(imagemSelecionada)
             }
         }
     }
