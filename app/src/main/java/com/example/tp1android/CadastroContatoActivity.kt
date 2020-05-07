@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,10 +13,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.room.Room
 import com.example.tp1android.Model.Usuario
 import com.example.tp1android.database.AppDatabase
 import com.example.tp1android.database.AppDatabaseService
+import com.example.tp1android.viewmodel.UsuarioViewModel
 import kotlinx.android.synthetic.main.activity_cadastro_contato.*
 
 
@@ -36,12 +40,8 @@ class CadastroContatoActivity : AppCompatActivity() {
             var nomeSobrenome = edtNome.text.toString()
             var telefone = edtTelefone.text.toString()
             var foto = imageView.toString()
-
             var usuario = Usuario(nomeSobrenome, telefone,foto)
-
-            val appDatabase = AppDatabaseService.getInstance(applicationContext)
-
-            appDatabase.usuarioDao().store(usuario)
+            SetupTask().execute(usuario)
 
             startActivity(Intent(this, MainActivity::class.java))
         }
@@ -58,5 +58,15 @@ class CadastroContatoActivity : AppCompatActivity() {
                 foto.setImageBitmap(imagemSelecionada)
             }
         }
+    }
+
+    inner class SetupTask: AsyncTask<Usuario, Unit, Unit>(){
+
+        override fun doInBackground(vararg params: Usuario?) {
+            val appDatabase = AppDatabaseService.getInstance(applicationContext)
+
+            appDatabase.usuarioDao().store(params[0]!!)
+        }
+
     }
 }
