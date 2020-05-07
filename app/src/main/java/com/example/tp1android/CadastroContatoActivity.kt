@@ -28,10 +28,7 @@ class CadastroContatoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cadastro_contato)
 
         FABNovaImagem.setOnClickListener {
-            val i = Intent(
-                Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI
-            )
+            val i = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(Intent.createChooser(i, "Selecione uma imagem"), PICK_IMAGE)
         }
 

@@ -11,6 +11,7 @@ class UsuarioAndContato (
         parentColumn = "id",
         entityColumn = "usuario_id"
     ) val contato: Contato
+// lista de contatos  seria val contatos: List<Contato>
 )
 {
     /*
