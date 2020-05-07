@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
 import com.example.tp1android.Model.Usuario
 import com.example.tp1android.database.AppDatabase
+import com.example.tp1android.database.AppDatabaseService
 import kotlinx.android.synthetic.main.activity_cadastro_contato.*
 
 
@@ -35,24 +36,17 @@ class CadastroContatoActivity : AppCompatActivity() {
         }
 
         btnCadastrar.setOnClickListener {
-            var nome = edtNome.text.toString()
+            var nomeSobrenome = edtNome.text.toString()
             var telefone = edtTelefone.text.toString()
             var foto = imageView.toString()
 
-            var usuario = Usuario(nome, telefone,foto)
+            var usuario = Usuario(nomeSobrenome, telefone,foto)
 
-            var appDatabase = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java,
-                "appDatabase.sql"
-            )
-                .allowMainThreadQueries()
-                .build()
+            val appDatabase = AppDatabaseService.getInstance(applicationContext)
 
             appDatabase.usuarioDao().store(usuario)
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 
@@ -63,9 +57,7 @@ class CadastroContatoActivity : AppCompatActivity() {
             if (requestCode == PICK_IMAGE) {
                 val imagemURI = ImageDecoder.createSource(this.contentResolver, data!!.data!!)
                 val imagemSelecionada = ImageDecoder.decodeBitmap(imagemURI)
-
                 val foto = imageView
-
                 foto.setImageBitmap(imagemSelecionada)
             }
         }
