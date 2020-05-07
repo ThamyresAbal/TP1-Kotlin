@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, CadastroContatoActivity::class.java))
         }
     }
-
+ // oioioioioio
     @SuppressLint("StaticFieldLeak")
     inner class SetupTask: AsyncTask<
             Unit,
@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(result: Array<UsuarioAndContato>?) {
             super.onPostExecute(result)
             // trocar a listView pela configuração recycle
-            lstUsuarios.adapter = ArrayAdapter(
+          /*  lstUsuarios.adapter = ArrayAdapter(
                 applicationContext,
                 android.R.layout.simple_list_item_activated_2,
                 result!!
-            )
+            )*/
         }
     }
 }
