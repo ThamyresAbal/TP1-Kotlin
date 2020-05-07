@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var appDatabase = Room.databaseBuilder(
+        val appDatabase = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "appDatabase.sql"
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         // Post
         lstUsuarios.adapter = ArrayAdapter(
             applicationContext,
-            android.R.layout.la,
+            android.R.layout.simple_list_item_activated_2,
             usuarios
         )
         fabAddUsuario.setOnClickListener {

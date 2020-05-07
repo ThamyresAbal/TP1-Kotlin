@@ -6,14 +6,11 @@ import androidx.room.PrimaryKey
 @Entity
 class Usuario(
     var nome: String,
-    var telefone: String,
+    var sobrenome: String,
     var foto: String,
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
 )
-{
 
-    override fun toString(): String {
-        return "$nome - $telefone"
-    }
-}
+
+
