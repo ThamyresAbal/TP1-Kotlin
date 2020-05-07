@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tp1android.Model.Usuario
+import com.example.tp1android.Model.UsuarioAndContato
 import com.example.tp1android.R
-import kotlinx.android.synthetic.main.contatosrecycle.view.*
+import kotlinx.android.synthetic.main.contatos_recycle.view.*
 
-class ContatosAdapter(
-    var contatos: List<Usuario>
-) : RecyclerView.Adapter<ContatosAdapter.ContatoViewHolder>(){
+class ContatoAdapter(
+    private var contatos: Array<UsuarioAndContato>
+) : RecyclerView.Adapter<ContatoAdapter.ContatoViewHolder>(){
 
     class ContatoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageView = view.imgContato
@@ -22,7 +22,7 @@ class ContatosAdapter(
         val view = LayoutInflater
             .from(parent.context)
             .inflate(
-                R.layout.contatosrecycle,
+                R.layout.contatos_recycle,
                 parent,
                 false
             )
